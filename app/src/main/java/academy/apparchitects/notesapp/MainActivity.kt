@@ -1,5 +1,6 @@
 package academy.apparchitects.notesapp
 
+import academy.apparchitects.notesapp.ui.NotesAppNav
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,10 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import academy.apparchitects.notesapp.ui.theme.NotesAppTheme
 import androidx.compose.foundation.layout.Box
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 class MainActivity : ComponentActivity() {

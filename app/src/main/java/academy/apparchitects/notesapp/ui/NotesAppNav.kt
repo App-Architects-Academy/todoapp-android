@@ -1,5 +1,6 @@
-package academy.apparchitects.notesapp
+package academy.apparchitects.notesapp.ui
 
+import academy.apparchitects.notesapp.ui.screens.NotesListScreen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -15,16 +16,10 @@ import kotlin.random.Random
 @Composable
 fun NotesAppNav(navController: NavHostController, startDestination: Destinations = Destinations.NotesList) {
     NavHost(navController = navController, startDestination = startDestination) {
-        composable<Destinations.NotesList>() {
-            Column {
-                Text(text = "Home")
-                Button(onClick = {
-                    val id = Random(100).nextInt()
-                    navController.navigate(Destinations.NoteDetail("note_$id"))
-                }) {
-                    Text(text = "Click to go to Note Details")
-                }
-            }
+        composable<Destinations.NotesList> {
+            NotesListScreen(onNoteClick = {
+                navController.navigate(Destinations.NoteDetail(it))
+            })
         }
 
         composable<Destinations.NoteDetail>() { backStackEntry ->
