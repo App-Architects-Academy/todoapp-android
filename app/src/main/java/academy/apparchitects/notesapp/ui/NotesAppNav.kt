@@ -14,8 +14,16 @@ import kotlin.random.Random
 
 
 @Composable
-fun NotesAppNav(navController: NavHostController, startDestination: Destinations = Destinations.NotesList) {
-    NavHost(navController = navController, startDestination = startDestination) {
+fun NotesAppNav(
+    navController: NavHostController,
+    startDestination: Destinations = Destinations.NotesList
+) {
+
+    NavHost(
+        navController = navController,
+        startDestination = startDestination
+    ) {
+
         composable<Destinations.NotesList> {
             NotesListScreen(onNoteClick = {
                 navController.navigate(Destinations.NoteDetail(it))
@@ -31,6 +39,7 @@ fun NotesAppNav(navController: NavHostController, startDestination: Destinations
                 }
             }
         }
+
     }
 }
 

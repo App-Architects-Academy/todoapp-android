@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.compose.compiler)
     id("androidx.navigation.safeargs.kotlin")
     kotlin("plugin.serialization").version("1.9.0")
+    kotlin("kapt")
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -73,4 +75,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.jetpack.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+
+    //hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 }

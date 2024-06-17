@@ -4,6 +4,7 @@ import academy.apparchitects.notesapp.data.Note
 import academy.apparchitects.notesapp.presentation.base.BaseViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -13,9 +14,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import java.util.UUID
+import javax.inject.Inject
 import kotlin.random.Random
 
-class NotesListVM : BaseViewModel<NotesListStates>() {
+@HiltViewModel
+class NotesListVM @Inject constructor(): BaseViewModel<NotesListStates>() {
+
     private val _state: MutableStateFlow<NotesListStates> = MutableStateFlow(NotesListStates.Idle)
 
     override val state: StateFlow<NotesListStates> = _state
@@ -54,7 +58,6 @@ class NotesListVM : BaseViewModel<NotesListStates>() {
                     NotesListStates.Error(t.message ?: "Not yet implemented")
                 }
             }
-
         }
     }
 }

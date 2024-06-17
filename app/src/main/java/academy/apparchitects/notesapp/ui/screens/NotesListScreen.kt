@@ -18,14 +18,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun NotesListScreen(
     onNoteClick: (String) -> Unit,
-    notesListVM: NotesListVM = viewModel(modelClass = NotesListVM::class)
+    notesListVM: NotesListVM = hiltViewModel()
 ) {
+
     val state = notesListVM.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {
