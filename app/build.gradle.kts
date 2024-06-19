@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     id("androidx.navigation.safeargs.kotlin")
     kotlin("plugin.serialization").version("1.9.0")
+    //alias(libs.plugins.kotlinKapt)
     kotlin("kapt")
     alias(libs.plugins.hilt)
 }
