@@ -22,6 +22,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
@@ -83,7 +84,7 @@ fun NotesListSuccess(
     recentNotes: List<Note>,
     dailyTasks: List<DailyTask>,
     reminders: List<Note>,
-    onNoteClick: (String) -> Unit
+    onNoteClick: (String) -> Unit  // will be used later for navigation
 ) {
     LazyVerticalStaggeredGrid(
         modifier = Modifier.fillMaxSize(),
@@ -149,10 +150,9 @@ fun NotesListSuccess(
                 )
             }
 
-            itemsIndexed(dailyTasks) { index, item ->
+            items(dailyTasks) { item ->
                 DailyTaskItem(
-                    dailyTask = item,
-                    index = index
+                    dailyTask = item
                 )
             }
         }
@@ -226,8 +226,7 @@ fun RecentNotesItem(
 @Composable
 fun DailyTaskItem(
     dailyTask: DailyTask,
-    modifier: Modifier = Modifier,
-    index: Int
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
