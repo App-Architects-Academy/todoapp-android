@@ -44,7 +44,7 @@ class NotesListVM @Inject constructor(): BaseViewModel<NotesListStates>() {
 
                     DailyTask(
                         id = UUID.randomUUID(),
-                        title = "Note $it",
+                        title = "Note ${it+1}",
                         todoItems = itemsList,
                         createdOn = Clock.System.now()
                     )
@@ -58,11 +58,11 @@ class NotesListVM @Inject constructor(): BaseViewModel<NotesListStates>() {
                         createdOn = Clock.System.now()
                     )
                 }
-                val reminders = (0..3).toList().map {
+                val reminders = (0..8).toList().map {
                     Note(
                         id = UUID.randomUUID(),
-                        title = "Fav Note $it",
-                        note = "Some note $it",
+                        title = "Fav Note ${it+1}",
+                        note = "Some note ${it+1}",
                         createdOn = Clock.System.now()
                     )
                 }

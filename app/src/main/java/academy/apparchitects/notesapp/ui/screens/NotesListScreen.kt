@@ -9,26 +9,23 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowColumn
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
+import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -81,7 +78,6 @@ fun NotesListScreen(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun NotesListSuccess(
     recentNotes: List<Note>,
@@ -89,159 +85,78 @@ fun NotesListSuccess(
     reminders: List<Note>,
     onNoteClick: (String) -> Unit
 ) {
-    LazyColumn(
-        modifier = Modifier.padding(16.dp)
-    ) {
-        item {
-            Text(
-                "Fav Notes",
-                textDecoration = TextDecoration.Underline,
-                fontWeight = FontWeight.Bold
-            )
-            Divider()
-        }
-
-        item {
-            Text("Reminder", fontWeight = FontWeight.Bold, fontSize = 24.sp)
-        }
-
-        item {
-            LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 16.dp)
-            ) {
-                items(reminders) {
-                    it.title?.let { title -> ReminderItem(title = title) }
-                }
+    LazyVerticalStaggeredGrid(
+        modifier = Modifier.fillMaxSize(),
+        columns = StaggeredGridCells.Fixed(2),
+        verticalItemSpacing = 4.dp,
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        content = {
+            item(span = StaggeredGridItemSpan.FullLine) {
+                Text(
+                    "Fav Notes",
+                    textDecoration = TextDecoration.Underline,
+                    fontWeight = FontWeight.Bold
+                )
+                Divider()
             }
-        }
 
-        item {
-            Text("Recent Notes", fontWeight = FontWeight.Bold, fontSize = 24.sp)
-        }
-
-
-        item {
-            LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 16.dp)
-            ) {
-                items(recentNotes) { item ->
-                    RecentNotesItem(
-                        title = item.title ?: "",
-                        desc = item.desc ?: "",
-                        content = item.note,
-                        modifier = Modifier
-                    )
-                }
+            item(span = StaggeredGridItemSpan.FullLine) {
+                Text("Reminder", fontWeight = FontWeight.Bold, fontSize = 24.sp)
             }
-        }
 
-
-        item {
-            Text(
-                "Daily Tasks",
-                fontWeight = FontWeight.Bold,
-                fontSize = 24.sp
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-        }
-
-
-        item {
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                content = {
-
-                    val resultEven = dailyTasks.filterIndexed { index, dailyTask ->
-                        index % 2 == 0
-                    }
-
-                    val resultOdd = dailyTasks.filterIndexed { index, dailyTask ->
-                        index % 2 != 0
-                    }
-
-                    Column(
-                        modifier = Modifier.weight(1f),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        resultEven.forEach { item ->
-                            DailyTaskItem(
-                                modifier = Modifier,
-                                dailyTask = item
-                            )
-                        }
-                        //Spacer(modifier = Modifier.height(4.dp))
-                    }
-
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        resultOdd.forEach { item ->
-                            DailyTaskItem(
-                                modifier = Modifier,
-                                dailyTask = item
-                            )
-                        }
-                        //Spacer(modifier = Modifier.height(4.dp))
+            item(span = StaggeredGridItemSpan.FullLine) {
+                LazyRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    items(reminders) {
+                        it.title?.let { title -> ReminderItem(title = title) }
                     }
                 }
-            )
-            /*LazyVerticalStaggeredGrid(
-                columns = StaggeredGridCells.Fixed(2)
-            ) {
+            }
 
-            }*/
-        }
+            item(span = StaggeredGridItemSpan.FullLine) {
+                Text(
+                    "Recent Notes",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 24.sp,
+                    modifier = Modifier.padding(top = 10.dp)
+                )
+            }
 
-        /*item {
-            FlowColumn(
-                modifier = Modifier,
-                maxItemsInEachColumn = 2
-            ) {
-                dailyTasks.forEach { item ->
-                    DailyTaskItem(
-                        modifier = Modifier,
-                        dailyTask = item
-                    )
+            item(span = StaggeredGridItemSpan.FullLine) {
+                LazyRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    items(recentNotes) { item ->
+                        RecentNotesItem(
+                            title = item.title ?: "",
+                            desc = item.desc ?: "",
+                            content = item.note,
+                            modifier = Modifier
+                        )
+                    }
                 }
             }
-        }*/
 
-        /*items(favNotes) { note ->
-            Card(onClick = { onNoteClick(note.id.toString()) }) {
-                Column {
-                    Text(text = note.id.toString())
-                    Text(text = note.title ?: "No Title")
-                    Text(text = note.note)
-                }
+            item(span = StaggeredGridItemSpan.FullLine) {
+                Text(
+                    "Daily Tasks",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 24.sp,
+                    modifier = Modifier.padding(top = 10.dp)
+                )
             }
-            Spacer(modifier = Modifier.size(8.dp))
-        }
 
-        item {
-            Text("Other Notes",
-                textDecoration = TextDecoration.Underline,
-                fontWeight = FontWeight.Bold
-            )
-            Divider()
-        }
-
-        items(otherNotes) { note ->
-            Card(onClick = { onNoteClick(note.id.toString()) }) {
-                Column {
-                    Text(text = note.id.toString())
-                    Text(text = note.title ?: "No Title")
-                    Text(text = note.note)
-                }
+            itemsIndexed(dailyTasks) { index, item ->
+                DailyTaskItem(
+                    dailyTask = item,
+                    index = index
+                )
             }
-            Spacer(modifier = Modifier.size(8.dp))
-        }*/
-    }
+        }
+    )
 }
 
 
@@ -250,15 +165,17 @@ fun ReminderItem(
     title: String,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier
-            .padding(end = 8.dp)
-            .background(Color(0xFFF3EBA9))
-            .padding(horizontal = 12.dp, vertical = 8.dp)
-            .clip(RoundedCornerShape(4.dp)),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = title, color = Color.White)
+    Row {
+        Box(
+            modifier = modifier
+                .clip(RoundedCornerShape(4.dp))
+                .background(Color(0xFFF3EBA9))
+                .padding(horizontal = 12.dp, vertical = 8.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(text = title, color = Color.Black)
+        }
+        Spacer(modifier = Modifier.width(6.dp))
     }
 }
 
@@ -269,27 +186,39 @@ fun RecentNotesItem(
     content: String,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier
-            .widthIn(max = LocalConfiguration.current.screenWidthDp.dp * 0.5f)
-            .padding(end = 8.dp)
-            .background(Color(0xFFF3EBA9))
-            .padding(horizontal = 12.dp, vertical = 8.dp)
-            .clip(RoundedCornerShape(4.dp)),
-        contentAlignment = Alignment.Center
-    ) {
-        Column {
-            Text(text = title, color = Color.Black, fontWeight = FontWeight.W600, fontSize = 18.sp)
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = desc,
-                color = Color.DarkGray,
-                fontWeight = FontWeight.W500,
-                fontSize = 16.sp
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(text = content, color = Color.Gray, fontWeight = FontWeight.W400, fontSize = 14.sp)
+    Row {
+        Box(
+            modifier = modifier
+                .widthIn(max = LocalConfiguration.current.screenWidthDp.dp * 0.5f)
+                .clip(RoundedCornerShape(4.dp))
+                .background(Color(0xFFF3EBA9))
+                .padding(horizontal = 12.dp, vertical = 8.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column {
+                Text(
+                    text = title,
+                    color = Color.Black,
+                    fontWeight = FontWeight.W600,
+                    fontSize = 18.sp
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = desc,
+                    color = Color.DarkGray,
+                    fontWeight = FontWeight.W500,
+                    fontSize = 16.sp
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = content,
+                    color = Color.Gray,
+                    fontWeight = FontWeight.W400,
+                    fontSize = 14.sp
+                )
+            }
         }
+        Spacer(modifier = Modifier.width(6.dp))
     }
 }
 
@@ -297,31 +226,36 @@ fun RecentNotesItem(
 @Composable
 fun DailyTaskItem(
     dailyTask: DailyTask,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    index: Int
 ) {
     Box(
         modifier = modifier
-            .padding(end = 8.dp)
+            .clip(RoundedCornerShape(4.dp))
             .background(Color(0xFFF3EBA9))
-            .padding(horizontal = 12.dp, vertical = 8.dp)
-            .clip(RoundedCornerShape(4.dp)),
+            .padding(horizontal = 12.dp, vertical = 8.dp),
         contentAlignment = Alignment.Center
     ) {
-
-        Column {
-            Text(
-                text = dailyTask.title ?: "",
-                color = Color.Black, fontWeight = FontWeight.W600, fontSize = 18.sp
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            dailyTask.todoItems.forEach { item ->
-                TodoListItem(
-                    todoItem = item,
-                    onCheckedChange = { a, b ->
-
-                    }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(modifier.weight(1f)) {
+                Text(
+                    text = dailyTask.title ?: "",
+                    color = Color.Black,
+                    fontWeight = FontWeight.W600,
+                    fontSize = 18.sp
                 )
+                dailyTask.todoItems.forEach { item ->
+                    TodoListItem(
+                        todoItem = item,
+                        onCheckedChange = { a, b ->
+                        }
+                    )
+                }
             }
+            Spacer(modifier = Modifier.width(26.dp))
         }
     }
 }
@@ -334,9 +268,10 @@ fun TodoListItem(
 ) {
 
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 0.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Checkbox(
             checked = todoItem.isCompleted,
@@ -347,18 +282,11 @@ fun TodoListItem(
                 )
             }
         )
-
-        /* Spacer(
-             modifier = Modifier.width(4.dp)
-         )*/
-
         Text(
             text = todoItem.item,
             color = Color.Gray,
             fontWeight = FontWeight.W400,
             fontSize = 14.sp
         )
-
     }
 }
-
