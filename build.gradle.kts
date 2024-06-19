@@ -1,8 +1,7 @@
 
 buildscript {
     dependencies {
-        val nav_version = "2.8.0-beta03"
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
+        classpath(libs.jetpack.navigation.safe.args.gradle.plugin)
         classpath(libs.hilt.gradle.plugin)
     }
     repositories {
