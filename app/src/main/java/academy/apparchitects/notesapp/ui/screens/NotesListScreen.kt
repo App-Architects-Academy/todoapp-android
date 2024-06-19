@@ -23,7 +23,6 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
-import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Divider
@@ -54,8 +53,7 @@ fun NotesListScreen(
         notesListVM.fetchNotes()
     }
 
-    val currentState = state.value
-    when (currentState) {
+    when (val currentState = state.value) {
         is NotesListStates.Success -> {
             NotesListSuccess(
                 recentNotes = currentState.recentNotes,
