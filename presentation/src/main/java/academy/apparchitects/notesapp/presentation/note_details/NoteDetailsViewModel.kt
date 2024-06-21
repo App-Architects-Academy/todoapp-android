@@ -29,7 +29,7 @@ class NoteDetailsViewModel @Inject constructor(
   fun updateDescription(newDesc: String) {
     _state.update {
       updateSuccessState(it) { success ->
-        success.copy(note = newDesc)
+        success.copy(desc = newDesc)
       }
     }
   }
@@ -49,13 +49,11 @@ class NoteDetailsViewModel @Inject constructor(
 //        try {
 //          val note = noteRepo.getNoteById(id)
 //          _state.update {
-//            updateSuccessState(it) { success ->
-//              success.copy(
-//                noteId = note.id,
-//                title = note.title,
-//                note = note.note
-//              )
-//            }
+//            NoteDetailsState.Success(
+//              noteId = note.id,
+//              title = note.title,
+//              note = note.note
+//            )
 //          }
 //        } catch (e: Exception) {
 //          _state.update {
@@ -66,14 +64,12 @@ class NoteDetailsViewModel @Inject constructor(
     } else {
       // New note
       _state.update {
-        updateSuccessState(it) { success ->
-          success.copy(
-            noteId = null,
-            title = "",
-            desc = "",
-            note = ""
-          )
-        }
+        NoteDetailsState.Success(
+          noteId = null,
+          title = "",
+          desc = "",
+          note = ""
+        )
       }
     }
   }

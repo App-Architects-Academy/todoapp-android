@@ -30,7 +30,6 @@ fun NoteDetailsContent(
 
   Column(
     modifier = modifier
-      .fillMaxSize()
       .background(color = backgroundColor),
     verticalArrangement = Arrangement.spacedBy(8.dp)
   ) {
@@ -41,14 +40,21 @@ fun NoteDetailsContent(
       modifier = Modifier
         .fillMaxWidth()
         .background(Color.Transparent)
-        .padding(12.dp),
+        .padding(horizontal = 16.dp),
       textStyle = TextStyle.Default.copy(
         fontSize = 24.sp,
         fontWeight = FontWeight.W600,
         color = Color(0xFF6B1B1C)
       ),
       placeholder = {
-        Text(text = "Title")
+        Text(
+          text = "Title",
+          style = TextStyle.Default.copy(
+            fontSize = 24.sp,
+            fontWeight = FontWeight.W600,
+            color = Color.LightGray
+          )
+        )
       },
       colors = OutlinedTextFieldDefaults.colors(
         focusedContainerColor = Color.Transparent,
@@ -64,14 +70,21 @@ fun NoteDetailsContent(
       modifier = Modifier
         .fillMaxWidth()
         .background(Color.Transparent)
-        .padding(12.dp),
+        .padding(horizontal = 16.dp),
       textStyle = TextStyle.Default.copy(
         fontSize = 18.sp,
         fontWeight = FontWeight.W500,
         color = Color.Black
       ),
       placeholder = {
-        Text(text = "Description")
+        Text(
+          text = "Description",
+          style = TextStyle.Default.copy(
+            fontSize = 18.sp,
+            fontWeight = FontWeight.W500,
+            color = Color.LightGray
+          )
+        )
       },
       colors = OutlinedTextFieldDefaults.colors(
         focusedContainerColor = Color.Transparent,
@@ -86,7 +99,23 @@ fun NoteDetailsContent(
       onValueChange = onNoteChange,
       modifier = Modifier
         .fillMaxSize(1f)
-        .background(Color.Transparent),
+        .background(Color.Transparent)
+        .padding(horizontal = 16.dp),
+      textStyle = TextStyle.Default.copy(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.W400,
+        color = Color.Black
+      ),
+      placeholder = {
+        Text(
+          text = "Enter note here",
+          style = TextStyle.Default.copy(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.W400,
+            color = Color.LightGray
+          )
+        )
+      },
       colors = OutlinedTextFieldDefaults.colors(
         unfocusedBorderColor = Color.Transparent,
         focusedBorderColor = Color.Transparent

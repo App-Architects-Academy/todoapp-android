@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Share
@@ -33,7 +32,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,7 +49,7 @@ fun NoteDetailsScreen(
     mutableStateOf(false)
   }
 
-  LaunchedEffect(key1 = isDetailsLoaded, key2 = Unit) {
+  LaunchedEffect(isDetailsLoaded) {
     if (!isDetailsLoaded) {
       viewModel.initialUiState(noteId)
       isDetailsLoaded = true
@@ -64,23 +62,22 @@ fun NoteDetailsScreen(
     navigateUp()
   }
 
-  Box(modifier = modifier.fillMaxSize().background(noteBgColor)) {
-    Scaffold(
-      topBar = {
-        TopAppBar(
-          title = {
-            Row(
-              modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-              horizontalArrangement = Arrangement.End
-            ) {
-              IconButton(onClick = {
-                // Shareable only when state is success and noteId is not null (i.e saved note)
-                if (state is NoteDetailsState.Success) {
-                  val successState = state as NoteDetailsState.Success
-                  successState.apply {
-                    noteId?.let {
+  Scaffold(
+    topBar = {
+      TopAppBar(
+        title = {
+          Row(
+            modifier = Modifier
+              .fillMaxWidth()
+              .padding(8.dp),
+            horizontalArrangement = Arrangement.End
+          ) {
+            IconButton(onClick = {
+              // Shareable only when state is success and noteId is not null (i.e saved note)
+              if (state is NoteDetailsState.Success) {
+                val successState = state as NoteDetailsState.Success
+                successState.apply {
+                  noteId?.let {
 //                      onShareClick(
 //                        Note(
 //                          id = UUID.fromString(it),
@@ -90,38 +87,43 @@ fun NoteDetailsScreen(
 //                          createdOn = createdOn
 //                        )
 //                      )
-                    }
                   }
                 }
-              }) {
-                Icon(
-                  imageVector = Icons.Default.Share,
-                  contentDescription = "share"
-                )
               }
-            }
-          },
-          navigationIcon = {
-            IconButton(onClick = {
-              viewModel.addOrUpdateNoteInDb()
-              navigateUp()
             }) {
               Icon(
-                Icons.Default.ArrowBack,
-                contentDescription = "back"
+                imageVector = Icons.Default.Share,
+                contentDescription = "share"
               )
             }
-          },
-          colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = noteBgColor
-          )
+          }
+        },
+        navigationIcon = {
+          IconButton(onClick = {
+            viewModel.addOrUpdateNoteInDb()
+            navigateUp()
+          }) {
+            Icon(
+              Icons.Default.ArrowBack,
+              contentDescription = "back"
+            )
+          }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+          containerColor = noteBgColor
         )
-      },
+      )
+    },
+    modifier = modifier
+  ) { scaffoldPadding ->
+    Box(
       modifier = modifier
-    ) { scaffoldPadding ->
-
+        .fillMaxSize()
+        .background(noteBgColor)
+    ) {
       when (state) {
         is NoteDetailsState.Error -> {}
+
         NoteDetailsState.Loading -> {
           Loader()
         }
@@ -133,9 +135,7 @@ fun NoteDetailsScreen(
             onDescChange = { viewModel.updateDescription(it) },
             onNoteChange = { viewModel.updateContent(it) },
             backgroundColor = noteBgColor,
-            modifier = Modifier
-              .fillMaxSize()
-              .padding(scaffoldPadding)
+            modifier = Modifier.padding(scaffoldPadding)
           )
         }
       }
