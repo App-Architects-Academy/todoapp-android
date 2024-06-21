@@ -1,6 +1,7 @@
 package academy.apparchitects.notesapp.ui
 
 import academy.apparchitects.notesapp.ui.screens.NotesListScreen
+import academy.apparchitects.notesapp.ui.screens.note_details.NoteDetailsScreen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -27,17 +28,23 @@ fun NotesAppNav(
         composable<Destinations.NotesList> {
             NotesListScreen(onNoteClick = {
                 navController.navigate(Destinations.NoteDetail(it))
-            })
+            },
+              onAddNoteClick = {
+                navController.navigate(Destinations.NoteDetail())
+              }
+            )
         }
 
-        composable<Destinations.NoteDetail>() { backStackEntry ->
-            val noteDetail: Destinations.NoteDetail = backStackEntry.toRoute()
-            Column {
-                Text(text = "Note Details ${noteDetail.noteId}")
-                Button(onClick = { navController.navigateUp() }) {
-                    Text(text = "Click to go back")
-                }
-            }
+        composable<Destinations.NoteDetail> { backStackEntry ->
+            val arg: Destinations.NoteDetail = backStackEntry.toRoute()
+
+            NoteDetailsScreen(
+              navigateUp = {navController.navigateUp()},
+              onShareClick = { _ ->
+
+              },
+              noteId = arg.noteId
+            )
         }
 
     }
@@ -49,5 +56,5 @@ sealed class Destinations {
     object NotesList: Destinations()
 
     @Serializable
-    data class NoteDetail(val noteId: String): Destinations()
+    data class NoteDetail(val noteId: String? = null): Destinations()
 }
