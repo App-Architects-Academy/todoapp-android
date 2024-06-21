@@ -1,5 +1,6 @@
 package academy.apparchitects.notesapp.presentation.note_details
 
+import academy.apparchitects.notesapp.data.SerializableNote
 import academy.apparchitects.notesapp.presentation.base.BaseViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -7,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,7 +44,12 @@ class NoteDetailsViewModel @Inject constructor(
     }
   }
 
-  fun initialUiState(id: String?) {
+  fun initialUiState(
+    id: String?,
+    // TODO: This is hacky for now to pass the note object to the details screen
+    // Change it once repository layer is there
+    note: SerializableNote?
+  ) {
     if (id != null) {
       // Existing note's details
       viewModelScope.launch {
@@ -60,6 +67,18 @@ class NoteDetailsViewModel @Inject constructor(
 //            NoteDetailsState.Error("Failed to fetch note: ${e.message}")
 //          }
 //        }
+      }
+      // TODO: This is hacky for now to pass the note object to the details screen
+      // Change it once repository layer is there
+      note?.let {
+        _state.update {
+          NoteDetailsState.Success(
+            noteId = UUID.fromString(note.id),
+            title = note.title,
+            desc = note.desc,
+            note = note.note
+          )
+        }
       }
     } else {
       // New note

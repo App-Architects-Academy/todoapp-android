@@ -10,7 +10,16 @@ data class Note(
     val note: String,
     val createdOn: Instant,
     val editedOn: Instant? = null,
-)
+) {
+  fun toSerializableNote(): SerializableNote {
+    return SerializableNote(
+      id = id.toString(),
+      title = title,
+      desc = desc,
+      note = note,
+    )
+  }
+}
 
 
 

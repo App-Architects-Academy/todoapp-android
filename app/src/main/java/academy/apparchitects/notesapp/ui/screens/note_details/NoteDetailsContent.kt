@@ -46,6 +46,7 @@ fun NoteDetailsContent(
         fontWeight = FontWeight.W600,
         color = Color(0xFF6B1B1C)
       ),
+      maxLines = 2,
       placeholder = {
         Text(
           text = "Title",
@@ -76,6 +77,7 @@ fun NoteDetailsContent(
         fontWeight = FontWeight.W500,
         color = Color.Black
       ),
+      maxLines = 2,
       placeholder = {
         Text(
           text = "Description",

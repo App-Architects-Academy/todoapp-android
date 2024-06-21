@@ -1,25 +1,24 @@
 package academy.apparchitects.notesapp.ui.screens.note_details
 
 import academy.apparchitects.notesapp.data.Note
+import academy.apparchitects.notesapp.data.SerializableNote
 import academy.apparchitects.notesapp.presentation.note_details.NoteDetailsState
 import academy.apparchitects.notesapp.presentation.note_details.NoteDetailsViewModel
 import academy.apparchitects.notesapp.ui.components.Loader
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,6 +39,9 @@ fun NoteDetailsScreen(
   navigateUp: () -> Unit,
   onShareClick: (Note?) -> Unit,
   noteId: String? = null,
+  // TODO: This is hacky for now to pass the note object to the details screen
+  // Change it once repository layer is there
+  serializableNote: SerializableNote? = null,
   modifier: Modifier = Modifier,
   viewModel: NoteDetailsViewModel = hiltViewModel()
 ) {
@@ -51,7 +54,8 @@ fun NoteDetailsScreen(
 
   LaunchedEffect(isDetailsLoaded) {
     if (!isDetailsLoaded) {
-      viewModel.initialUiState(noteId)
+      delay(500)
+      viewModel.initialUiState(noteId, serializableNote)
       isDetailsLoaded = true
     }
   }
@@ -64,20 +68,15 @@ fun NoteDetailsScreen(
 
   Scaffold(
     topBar = {
-      TopAppBar(
-        title = {
-          Row(
-            modifier = Modifier
-              .fillMaxWidth()
-              .padding(8.dp),
-            horizontalArrangement = Arrangement.End
-          ) {
-            IconButton(onClick = {
-              // Shareable only when state is success and noteId is not null (i.e saved note)
-              if (state is NoteDetailsState.Success) {
-                val successState = state as NoteDetailsState.Success
-                successState.apply {
-                  noteId?.let {
+      CenterAlignedTopAppBar(
+        title = {},
+        actions = {
+          IconButton(onClick = {
+            // Shareable only when state is success and noteId is not null (i.e saved note)
+            if (state is NoteDetailsState.Success) {
+              val successState = state as NoteDetailsState.Success
+              successState.apply {
+                noteId?.let {
 //                      onShareClick(
 //                        Note(
 //                          id = UUID.fromString(it),
@@ -87,15 +86,15 @@ fun NoteDetailsScreen(
 //                          createdOn = createdOn
 //                        )
 //                      )
-                  }
                 }
               }
-            }) {
-              Icon(
-                imageVector = Icons.Default.Share,
-                contentDescription = "share"
-              )
             }
+          }) {
+            Icon(
+              imageVector = Icons.Default.Share,
+              contentDescription = "share",
+              tint = Color(0xFF030303)
+            )
           }
         },
         navigationIcon = {
@@ -105,13 +104,15 @@ fun NoteDetailsScreen(
           }) {
             Icon(
               Icons.Default.ArrowBack,
-              contentDescription = "back"
+              contentDescription = "back",
+              tint = Color(0xFF030303)
             )
           }
         },
         colors = TopAppBarDefaults.topAppBarColors(
           containerColor = noteBgColor
-        )
+        ),
+        windowInsets = WindowInsets(top = 0.dp, bottom = 0.dp)
       )
     },
     modifier = modifier
