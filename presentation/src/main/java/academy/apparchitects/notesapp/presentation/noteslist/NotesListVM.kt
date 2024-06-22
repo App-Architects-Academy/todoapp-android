@@ -61,8 +61,9 @@ class NotesListVM @Inject constructor(): BaseViewModel<NotesListStates>() {
                 val reminders = (0..8).toList().map {
                     Note(
                         id = UUID.randomUUID(),
-                        title = "Fav Note ${it+1}",
-                        note = "Some note ${it+1}",
+                        title = "Reminder $it",
+                        desc = "Some description $it",
+                        note = "Some note $it",
                         createdOn = Clock.System.now()
                     )
                 }
