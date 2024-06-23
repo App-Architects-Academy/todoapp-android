@@ -42,8 +42,10 @@ fun NotesListScreen(
 ) {
   val state = notesListVM.state.collectAsStateWithLifecycle()
 
-  LaunchedEffect(key1 = Unit) {
-    notesListVM.fetchNotes()
+  LaunchedEffect(key1 = state.value) {
+    if (state.value !is NotesListStates.Success) {
+      notesListVM.fetchNotes()
+    }
   }
 
   Scaffold(
