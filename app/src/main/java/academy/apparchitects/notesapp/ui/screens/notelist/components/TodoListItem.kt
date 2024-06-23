@@ -1,6 +1,6 @@
-package academy.apparchitects.notesapp.ui.screens.note_list.components
+package academy.apparchitects.notesapp.ui.screens.notelist.components
 
-import academy.apparchitects.notesapp.data.TodoItem
+import academy.apparchitects.notesapp.data.model.TodoItem
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,9 +16,9 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun TodoListItem(
-  todoItem: TodoItem,
-  modifier: Modifier = Modifier,
-  onCheckedChange: (Boolean, TodoItem) -> Unit
+    todoItem: TodoItem,
+    modifier: Modifier = Modifier,
+    onCheckedChange: (Boolean, TodoItem) -> Unit
 ) {
 
   Row(

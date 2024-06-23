@@ -1,7 +1,8 @@
-package academy.apparchitects.notesapp.ui.screens.note_list.components
+package academy.apparchitects.notesapp.ui.screens.notelist.components
 
-import academy.apparchitects.notesapp.data.DailyTask
+import academy.apparchitects.notesapp.data.model.DailyTask
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,14 +21,16 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun DailyTaskItem(
-  dailyTask: DailyTask,
-  modifier: Modifier = Modifier
+    dailyTask: DailyTask,
+    modifier: Modifier = Modifier,
+    onNoteClick: () -> Unit = {},
 ) {
   Box(
     modifier = modifier
       .clip(RoundedCornerShape(4.dp))
       .background(Color(0xFFF3EBA9))
-      .padding(horizontal = 12.dp, vertical = 8.dp),
+      .padding(horizontal = 12.dp, vertical = 8.dp)
+      .clickable(onClick = onNoteClick),
     contentAlignment = Alignment.Center
   ) {
 

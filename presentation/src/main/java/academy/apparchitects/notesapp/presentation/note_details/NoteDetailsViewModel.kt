@@ -1,6 +1,6 @@
 package academy.apparchitects.notesapp.presentation.note_details
 
-import academy.apparchitects.notesapp.data.SerializableNote
+import academy.apparchitects.notesapp.data.model.SerializableNote
 import academy.apparchitects.notesapp.presentation.base.BaseViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel

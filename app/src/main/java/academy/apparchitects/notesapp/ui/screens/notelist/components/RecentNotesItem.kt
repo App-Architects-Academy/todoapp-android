@@ -1,4 +1,4 @@
-package academy.apparchitects.notesapp.ui.screens.note_list.components
+package academy.apparchitects.notesapp.ui.screens.notelist.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

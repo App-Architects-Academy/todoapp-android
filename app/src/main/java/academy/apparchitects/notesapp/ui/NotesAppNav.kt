@@ -1,8 +1,8 @@
 package academy.apparchitects.notesapp.ui
 
-import academy.apparchitects.notesapp.data.SerializableNote
-import academy.apparchitects.notesapp.ui.screens.note_details.NoteDetailsScreen
-import academy.apparchitects.notesapp.ui.screens.note_list.NotesListScreen
+import academy.apparchitects.notesapp.data.model.SerializableNote
+import academy.apparchitects.notesapp.ui.screens.notedetails.NoteDetailsScreen
+import academy.apparchitects.notesapp.ui.screens.notelist.NotesListScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -33,7 +33,7 @@ fun NotesAppNav(
         navController.navigate(
           Destinations.SerializableNoteDetail(
             noteId = noteId,
-            note = note.toSerializableNote()
+            note = note.toSerializable()
           )
         )
       },

@@ -1,4 +1,4 @@
-package academy.apparchitects.notesapp.ui.screens.note_details
+package academy.apparchitects.notesapp.ui.screens.notedetails
 
 import academy.apparchitects.notesapp.presentation.note_details.NoteDetailsState
 import androidx.compose.foundation.background

@@ -1,8 +1,9 @@
 package academy.apparchitects.notesapp.presentation.noteslist
 
-import academy.apparchitects.notesapp.data.DailyTask
-import academy.apparchitects.notesapp.data.Note
-import academy.apparchitects.notesapp.data.TodoItem
+import academy.apparchitects.notesapp.data.model.DailyTask
+import academy.apparchitects.notesapp.data.model.Reminder
+import academy.apparchitects.notesapp.data.model.TextNote
+import academy.apparchitects.notesapp.data.model.TodoItem
 import academy.apparchitects.notesapp.presentation.base.BaseViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -49,8 +50,8 @@ class NotesListVM @Inject constructor(): BaseViewModel<NotesListStates>() {
                         createdOn = Clock.System.now()
                     )
                 }
-                val recentNotes = (0..5).toList().map {
-                    Note(
+                val recentTextNotes = (0..5).toList().map {
+                    TextNote(
                         id = UUID.randomUUID(),
                         title = "Goal Gradient Effect",
                         desc = "Laws of UX",
@@ -59,17 +60,15 @@ class NotesListVM @Inject constructor(): BaseViewModel<NotesListStates>() {
                     )
                 }
                 val reminders = (0..8).toList().map {
-                    Note(
+                    Reminder(
                         id = UUID.randomUUID(),
-                        title = "Reminder $it",
-                        desc = "Some description $it",
-                        note = "Some note $it",
-                        createdOn = Clock.System.now()
+                        reminder = "Reminder $it",
+                        isCompleted = it == 6
                     )
                 }
                 _state.update {
                     NotesListStates.Success(
-                        recentNotes = recentNotes,
+                        recentTextNotes = recentTextNotes,
                         dailyTasks = dailyTaskList,
                         reminders = reminders
                     )

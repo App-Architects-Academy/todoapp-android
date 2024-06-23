@@ -1,7 +1,7 @@
-package academy.apparchitects.notesapp.ui.screens.note_details
+package academy.apparchitects.notesapp.ui.screens.notedetails
 
-import academy.apparchitects.notesapp.data.Note
-import academy.apparchitects.notesapp.data.SerializableNote
+import academy.apparchitects.notesapp.data.model.TextNote
+import academy.apparchitects.notesapp.data.model.SerializableNote
 import academy.apparchitects.notesapp.presentation.note_details.NoteDetailsState
 import academy.apparchitects.notesapp.presentation.note_details.NoteDetailsViewModel
 import academy.apparchitects.notesapp.ui.components.Loader
@@ -36,14 +36,14 @@ import kotlinx.coroutines.delay
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NoteDetailsScreen(
-  navigateUp: () -> Unit,
-  onShareClick: (Note?) -> Unit,
-  noteId: String? = null,
+    navigateUp: () -> Unit,
+    onShareClick: (TextNote?) -> Unit,
+    noteId: String? = null,
   // TODO: This is hacky for now to pass the note object to the details screen
   // Change it once repository layer is there
-  serializableNote: SerializableNote? = null,
-  modifier: Modifier = Modifier,
-  viewModel: NoteDetailsViewModel = hiltViewModel()
+    serializableNote: SerializableNote? = null,
+    modifier: Modifier = Modifier,
+    viewModel: NoteDetailsViewModel = hiltViewModel()
 ) {
   val state: NoteDetailsState by viewModel.state.collectAsState()
   val noteBgColor = Color(0xFFFFFFE2)

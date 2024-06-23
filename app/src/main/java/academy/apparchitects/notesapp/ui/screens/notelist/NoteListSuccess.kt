@@ -1,37 +1,34 @@
-package academy.apparchitects.notesapp.ui.screens.note_list
+package academy.apparchitects.notesapp.ui.screens.notelist
 
-import academy.apparchitects.notesapp.data.DailyTask
-import academy.apparchitects.notesapp.data.Note
-import academy.apparchitects.notesapp.ui.screens.note_list.components.DailyTaskItem
-import academy.apparchitects.notesapp.ui.screens.note_list.components.RecentNotesItem
-import academy.apparchitects.notesapp.ui.screens.note_list.components.ReminderItem
+import academy.apparchitects.notesapp.data.model.DailyTask
+import academy.apparchitects.notesapp.data.model.Note
+import academy.apparchitects.notesapp.data.model.Reminder
+import academy.apparchitects.notesapp.data.model.TextNote
+import academy.apparchitects.notesapp.ui.screens.notelist.components.DailyTaskItem
+import academy.apparchitects.notesapp.ui.screens.notelist.components.RecentNotesItem
+import academy.apparchitects.notesapp.ui.screens.notelist.components.ReminderItem
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
 fun NotesListSuccess(
-  recentNotes: List<Note>,
+  recentTextNotes: List<TextNote>,
   dailyTasks: List<DailyTask>,
-  reminders: List<Note>,
+  reminders: List<Reminder>,
   onNoteClick: (String, Note) -> Unit,
   modifier: Modifier = Modifier,
 ) {
@@ -43,14 +40,6 @@ fun NotesListSuccess(
     horizontalArrangement = Arrangement.spacedBy(6.dp),
     content = {
 
-      item(span = StaggeredGridItemSpan.FullLine) {
-        Text(
-          "Fav Notes",
-          textDecoration = TextDecoration.Underline,
-          fontWeight = FontWeight.Bold
-        )
-        Divider()
-      }
 
       item(span = StaggeredGridItemSpan.FullLine) {
         Text("Reminder", fontWeight = FontWeight.Bold, fontSize = 24.sp)
@@ -62,19 +51,17 @@ fun NotesListSuccess(
             .fillMaxWidth()
         ) {
           items(reminders) {
-            it.title?.let { title ->
-              ReminderItem(
-                title = title,
-                onClick = {
-                  onNoteClick(
-                    it.id.toString(),
-                    // TODO: This is hacky for now to pass the note object to the details screen
-                    // Change it once repository layer is there
-                    it
-                  )
-                }
-              )
-            }
+            ReminderItem(
+              reminder = it,
+              onClick = {
+                onNoteClick(
+                  it.id.toString(),
+                  // TODO: This is hacky for now to pass the note object to the details screen
+                  // Change it once repository layer is there
+                  it
+                )
+              }
+            )
           }
         }
       }
@@ -93,7 +80,7 @@ fun NotesListSuccess(
           modifier = Modifier
             .fillMaxWidth()
         ) {
-          items(recentNotes) { item ->
+          items(recentTextNotes) { item ->
             RecentNotesItem(
               title = item.title ?: "",
               desc = item.desc ?: "",
@@ -123,7 +110,15 @@ fun NotesListSuccess(
 
       items(dailyTasks) { item ->
         DailyTaskItem(
-          dailyTask = item
+          dailyTask = item,
+          onNoteClick = {
+            onNoteClick(
+              item.id.toString(),
+              // TODO: This is hacky for now to pass the note object to the details screen
+              // Change it once repository layer is there
+              item
+            )
+          }
         )
       }
     }

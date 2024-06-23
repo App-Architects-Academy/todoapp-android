@@ -1,6 +1,8 @@
-package academy.apparchitects.notesapp.ui.screens.note_list
+package academy.apparchitects.notesapp.ui.screens.notelist
 
-import academy.apparchitects.notesapp.data.Note
+import academy.apparchitects.notesapp.data.model.Note
+import academy.apparchitects.notesapp.data.model.SerializableNote
+import academy.apparchitects.notesapp.data.model.TextNote
 import academy.apparchitects.notesapp.presentation.noteslist.NotesListStates
 import academy.apparchitects.notesapp.presentation.noteslist.NotesListVM
 import academy.apparchitects.notesapp.ui.components.Loader
@@ -33,10 +35,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NotesListScreen(
-  onNoteClick: (String, Note) -> Unit,
-  onAddNoteClick: () -> Unit,
-  notesListVM: NotesListVM = hiltViewModel(),
-  modifier: Modifier = Modifier
+    onNoteClick: (String, Note) -> Unit,
+    onAddNoteClick: () -> Unit,
+    notesListVM: NotesListVM = hiltViewModel(),
+    modifier: Modifier = Modifier
 ) {
   val state = notesListVM.state.collectAsStateWithLifecycle()
 
@@ -87,7 +89,7 @@ fun NotesListScreen(
       when (val currentState = state.value) {
         is NotesListStates.Success -> {
           NotesListSuccess(
-            recentNotes = currentState.recentNotes,
+            recentTextNotes = currentState.recentTextNotes,
             dailyTasks = currentState.dailyTasks,
             reminders = currentState.reminders,
             onNoteClick = onNoteClick,
