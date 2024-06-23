@@ -1,6 +1,6 @@
 package academy.apparchitects.notesapp.ui.screens.notedetails
 
-import academy.apparchitects.notesapp.presentation.note_details.NoteDetailsState
+import academy.apparchitects.notesapp.presentation.notedetails.NoteDetailsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

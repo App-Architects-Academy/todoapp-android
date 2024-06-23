@@ -4,18 +4,26 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import java.util.UUID
 
-sealed interface NoteDetailsState {
-  data object Loading : NoteDetailsState
+sealed interface AddNoteState {
+  data object Loading : AddNoteState
 
-  data class Success(
+  data class Init(
     val noteId: UUID? = null,
     val title: String? = null,
     val desc: String? = null,
     val note: String? = null,
     val createdOn: Instant = Clock.System.now(),
-  ) : NoteDetailsState
+  ) : AddNoteState
 
   data class Error(
     val errorMsg: String
-  ) : NoteDetailsState
+  ) : AddNoteState
+
+  object Success: AddNoteState
 }
+
+data class AddTextNote(
+  val title: String,
+  val desc: String,
+  val note: String
+)

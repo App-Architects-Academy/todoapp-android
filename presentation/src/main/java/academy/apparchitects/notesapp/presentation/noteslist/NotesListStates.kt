@@ -19,4 +19,6 @@ sealed class NotesListStates {
     object Loading : NotesListStates()
 
     object Idle : NotesListStates()
+
+    object Empty : NotesListStates()
 }

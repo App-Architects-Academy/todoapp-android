@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("plugin.serialization").version("1.9.0")
     id("kotlin-parcelize")
+    kotlin("kapt")
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -45,4 +47,11 @@ dependencies {
     implementation(libs.kotlinx.datetime)
 
     implementation(libs.kotlinx.serialization.json)
+
+
+    //hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 }

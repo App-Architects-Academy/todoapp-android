@@ -1,6 +1,7 @@
 package academy.apparchitects.notesapp.ui
 
 import academy.apparchitects.notesapp.data.model.SerializableNote
+import academy.apparchitects.notesapp.ui.screens.addnote.AddNoteScreen
 import academy.apparchitects.notesapp.ui.screens.notedetails.NoteDetailsScreen
 import academy.apparchitects.notesapp.ui.screens.notelist.NotesListScreen
 import androidx.compose.runtime.Composable
@@ -38,7 +39,7 @@ fun NotesAppNav(
         )
       },
         onAddNoteClick = {
-          navController.navigate(Destinations.NoteDetail())
+          navController.navigate(Destinations.AddNote)
         }
       )
     }
@@ -66,6 +67,13 @@ fun NotesAppNav(
       )
     }
 
+    composable<Destinations.AddNote> {
+      AddNoteScreen(
+        navigateUp = { navController.navigateUp() },
+        onNoteAdded = { navController.navigateUp() }
+      )
+    }
+
   }
 }
 
@@ -84,4 +92,7 @@ sealed class Destinations {
     val noteId: String? = null,
     val note: SerializableNote
   ) : Destinations()
+
+  @Serializable
+  data object AddNote : Destinations()
 }

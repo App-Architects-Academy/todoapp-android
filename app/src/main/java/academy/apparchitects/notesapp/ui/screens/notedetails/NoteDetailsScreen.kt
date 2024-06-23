@@ -2,8 +2,8 @@ package academy.apparchitects.notesapp.ui.screens.notedetails
 
 import academy.apparchitects.notesapp.data.model.TextNote
 import academy.apparchitects.notesapp.data.model.SerializableNote
-import academy.apparchitects.notesapp.presentation.note_details.NoteDetailsState
-import academy.apparchitects.notesapp.presentation.note_details.NoteDetailsViewModel
+import academy.apparchitects.notesapp.presentation.notedetails.NoteDetailsState
+import academy.apparchitects.notesapp.presentation.notedetails.NoteDetailsViewModel
 import academy.apparchitects.notesapp.ui.components.Loader
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background

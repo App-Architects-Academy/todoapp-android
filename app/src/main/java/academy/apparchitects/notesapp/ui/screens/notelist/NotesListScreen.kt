@@ -1,8 +1,6 @@
 package academy.apparchitects.notesapp.ui.screens.notelist
 
 import academy.apparchitects.notesapp.data.model.Note
-import academy.apparchitects.notesapp.data.model.SerializableNote
-import academy.apparchitects.notesapp.data.model.TextNote
 import academy.apparchitects.notesapp.presentation.noteslist.NotesListStates
 import academy.apparchitects.notesapp.presentation.noteslist.NotesListVM
 import academy.apparchitects.notesapp.ui.components.Loader
@@ -42,10 +40,8 @@ fun NotesListScreen(
 ) {
   val state = notesListVM.state.collectAsStateWithLifecycle()
 
-  LaunchedEffect(key1 = state.value) {
-    if (state.value !is NotesListStates.Success) {
-      notesListVM.fetchNotes()
-    }
+  LaunchedEffect(key1 = Unit) {
+    notesListVM.fetchNotes(isSilent = state.value is NotesListStates.Success)
   }
 
   Scaffold(
@@ -109,6 +105,10 @@ fun NotesListScreen(
 
         is NotesListStates.Loading -> {
           Loader()
+        }
+
+        NotesListStates.Empty -> {
+          Text(text = "No notes Added Yet. Tap on the + icon on the bottom right to add a note")
         }
       }
     }
