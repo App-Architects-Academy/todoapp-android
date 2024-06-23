@@ -1,8 +1,8 @@
 
 buildscript {
     dependencies {
-        val nav_version = "2.8.0-beta03"
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
+        classpath(libs.jetpack.navigation.safe.args.gradle.plugin)
+        classpath(libs.hilt.gradle.plugin)
     }
     repositories {
         google()
@@ -15,4 +15,5 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.compose.compiler) apply false
+    alias(libs.plugins.hilt) apply false
 }
