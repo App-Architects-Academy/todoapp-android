@@ -5,9 +5,12 @@ import academy.apparchitects.notesapp.data.model.Note
 import academy.apparchitects.notesapp.data.model.NoteType
 import academy.apparchitects.notesapp.data.model.Reminder
 import academy.apparchitects.notesapp.data.model.TextNote
+import academy.apparchitects.notesapp.data.source.db.NotesDAO
 import javax.inject.Inject
 
-class NotesLocalDS @Inject constructor() {
+class NotesLocalDS @Inject constructor(
+    private val notesDAO: NotesDAO
+) {
     private val textNotes: MutableList<TextNote> = mutableListOf()
     private val tasks: MutableList<DailyTask> = mutableListOf()
     private val reminders: MutableList<Reminder> = mutableListOf()
