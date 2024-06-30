@@ -15,15 +15,17 @@ data class NoteEntity(
     val title: String? = null,
     val desc: String? = null,
     val note: String? = null,
-    val isCompleted: Boolean = false
+    val isCompleted: Boolean = false,
+    val createdOn: Long,
+    val updatedOn: Long? = null
 )
 
 @Entity("todos", foreignKeys = [
     ForeignKey(entity = NoteEntity::class, parentColumns = ["id"], childColumns = ["note_id"], onDelete = ForeignKey.CASCADE)
 ])
 data class TodoItemsEntity(
-    @PrimaryKey val id: Int,
-    val desc: String?,
+    @PrimaryKey val id: String,
+    val desc: String,
     @ColumnInfo(name = "is_completed") val isCompleted: Boolean,
     @ColumnInfo(name = "note_id", index = true) val noteId: String,
 )

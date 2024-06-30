@@ -22,8 +22,14 @@ interface NotesDAO {
     @Query("select * from notes WHERE type = 1")
     fun getTasks(): List<TodoNote>
 
+    @Query("select * from todos WHERE  note_id = :noteId")
+    fun getTodos(noteId: String): List<TodoItemsEntity>
+
     @Insert
     fun addNote(noteEntity: NoteEntity)
+
+    @Insert
+    fun addTodos(todoItemsEntities: List<TodoItemsEntity>)
 
     @Update
     fun editNote(noteEntity: NoteEntity)

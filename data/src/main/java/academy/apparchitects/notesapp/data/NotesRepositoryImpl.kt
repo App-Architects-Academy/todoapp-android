@@ -32,6 +32,6 @@ class NotesRepositoryImpl(
     }
 
     override suspend fun getNote(noteId: String, noteType: NoteType): Note {
-        return notesLocalDS.getNote(noteId, noteType)
+        return notesLocalDS.getNote(noteId)
     }
 }
