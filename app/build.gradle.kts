@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace = "academy.apparchitects.notesapp"
+    namespace = "academy.apparchitects.todoapp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "academy.apparchitects.notesapp"
+        applicationId = "academy.apparchitects.todoapp"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

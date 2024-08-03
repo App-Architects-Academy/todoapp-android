@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "academy.apparchitects.notesapp.presentation"
+    namespace = "academy.apparchitects.todoapp.presentation"
     compileSdk = 34
 
     defaultConfig {

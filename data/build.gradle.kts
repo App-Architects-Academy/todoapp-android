@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "academy.apparchitects.notesapp.data"
+    namespace = "academy.apparchitects.todoapp.data"
     compileSdk = 34
 
     defaultConfig {
