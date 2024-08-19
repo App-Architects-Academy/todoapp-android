@@ -8,9 +8,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TitleText(text: String) {
+fun Label(text: String) {
     Text(
-        text = "Title",
+        text = text,
         style = TextStyle.Default.copy(
             fontSize = 24.sp,
             fontWeight = FontWeight.W600,

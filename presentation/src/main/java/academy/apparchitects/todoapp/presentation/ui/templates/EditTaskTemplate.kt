@@ -21,6 +21,7 @@ fun EditTaskTemplate(
     detail: String,
     onTitleChange: (String) -> Unit,
     onDetailChange: (String) -> Unit,
+    onDateChange: (String) -> Unit,
     onUpdateClick: () -> Unit,
     onCancelClick: () -> Unit
 ) {
@@ -45,7 +46,8 @@ fun EditTaskTemplate(
                 onTitleChange = onTitleChange,
                 onDetailChange = onDetailChange,
                 onUpdateClick = onUpdateClick,
-                onCancelClick = onCancelClick
+                onCancelClick = onCancelClick,
+                onDateChange =onDateChange
             )
         }
     }
