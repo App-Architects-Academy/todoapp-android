@@ -18,6 +18,6 @@ fun TaskForm(
     Column {
         CustomTextField(label = "Title", value = title, onValueChange = onTitleChange)
         Spacer(modifier = Modifier.height(16.dp))
-        CustomTextField(label = "Detail", value = detail, onValueChange = onDetailChange)
+        CustomTextField(label = "Description", value = detail, onValueChange = onDetailChange)
     }
 }
