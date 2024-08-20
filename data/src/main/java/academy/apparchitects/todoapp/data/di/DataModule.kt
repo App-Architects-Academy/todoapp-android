@@ -2,7 +2,9 @@ package academy.apparchitects.todoapp.data.di
 
 import academy.apparchitects.todoapp.data.NotesRepository
 import academy.apparchitects.todoapp.data.NotesRepositoryImpl
+import academy.apparchitects.todoapp.data.TodoRepository
 import academy.apparchitects.todoapp.data.source.NotesLocalDS
+import academy.apparchitects.todoapp.data.source.TodoRepositoryImpl
 import academy.apparchitects.todoapp.data.source.db.NoteTypeConverter
 import academy.apparchitects.todoapp.data.source.db.NotesDAO
 import academy.apparchitects.todoapp.data.source.db.NotesDB
@@ -18,6 +20,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class DataModule {
+    @Provides
+    @Singleton
+    fun providesTodoRepository(): TodoRepository =
+      TodoRepositoryImpl()
+
     @Provides
     @Singleton
     fun providesRepository(notesLocalDS: NotesLocalDS): NotesRepository =
