@@ -18,6 +18,7 @@ hiltCompilerVersion = "1.2.0"
 hiltVersion = "2.48"
 navigationSafeArgsGradlePlugin = "2.8.0-beta03"
 room = "2.6.1"
+material3Android = "1.2.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -57,6 +58,7 @@ hilt-gradle-plugin = {module = "com.google.dagger:hilt-android-gradle-plugin", v
 
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room"}
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room"}
+androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

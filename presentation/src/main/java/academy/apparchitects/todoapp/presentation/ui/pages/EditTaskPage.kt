@@ -9,24 +9,38 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun EditTaskPage() {
+fun AddEditTaskPage(isEditMode: Boolean,toolBarTitle: String = "") {
     var title by remember { mutableStateOf("") }
     var detail by remember { mutableStateOf("") }
     var dueDate by remember { mutableStateOf("") }
+    var category by remember { mutableStateOf("") }
+    var priority by remember { mutableStateOf("") }
 
     EditTaskTemplate(
+        isEditMode = isEditMode,
+        toolBarTitle = toolBarTitle,
         title = title,
         detail = detail,
+        category = category,
+        priority = priority,
         onTitleChange = { title = it },
         onDetailChange = { detail = it },
-        onUpdateClick = { /* Handle update */ },
-        onCancelClick = { /* Handle cancel */ },
-        onDateChange = { dueDate = it}
+        onCategoryChange = { category = it },
+        onPriorityChange = { priority = it },
+        onUpdateClick = { /*todo Handle update */ },
+        onCancelClick = { /*todo Handle cancel */ },
+        onDateChange = { dueDate = it }
     )
 }
 
 @Preview
 @Composable
 private fun PrevEditTaskPage() {
-    EditTaskPage()
+    AddEditTaskPage(isEditMode = true,toolBarTitle = "Edit Task")
+}
+
+@Preview
+@Composable
+private fun PrevAddTaskPage() {
+    AddEditTaskPage(isEditMode = false,toolBarTitle = "Add Task")
 }

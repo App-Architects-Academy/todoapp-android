@@ -8,13 +8,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Label(text: String) {
+fun Label(
+    text: String, fontWeight: FontWeight = FontWeight.Normal,
+    color: Color = Color.Black, fontSize: Int = 18
+) {
     Text(
         text = text,
         style = TextStyle.Default.copy(
-            fontSize = 24.sp,
-            fontWeight = FontWeight.W600,
-            color = Color.LightGray
+            fontSize = fontSize.sp,
+            fontWeight = fontWeight,
+            color = color
         )
     )
 }
