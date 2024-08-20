@@ -1,6 +1,6 @@
 package academy.apparchitects.todoapp
 
-import academy.apparchitects.todoapp.ui.NotesAppNav
+import academy.apparchitects.todoapp.ui.TodoAppNav
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
             NotesAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(Modifier.padding(innerPadding)) {
-                        NotesAppNav(navController = navHostController)
+                        TodoAppNav(navController = navHostController)
                     }
                 }
             }

@@ -1,6 +1,7 @@
 package academy.apparchitects.todoapp.ui
 
 import academy.apparchitects.todoapp.data.model.SerializableNote
+import academy.apparchitects.todoapp.data.model.SerializableTodo
 import academy.apparchitects.todoapp.ui.screens.addnote.AddNoteScreen
 import academy.apparchitects.todoapp.ui.screens.notedetails.NoteDetailsScreen
 import academy.apparchitects.todoapp.ui.screens.notelist.NotesListScreen
@@ -13,7 +14,7 @@ import kotlinx.serialization.Serializable
 import kotlin.reflect.typeOf
 
 @Composable
-fun NotesAppNav(
+fun TodoAppNav(
   navController: NavHostController,
   startDestination: Destinations = Destinations.NotesList
 ) {
@@ -74,6 +75,52 @@ fun NotesAppNav(
       )
     }
 
+    composable<Destinations.TodosList> {
+//      TodosListScreen(
+//        onTodoClick = { todoId, todo ->
+//          navController.navigate(
+//            Destinations.SerializableTodoDetail(
+//              todoId = todoId,
+//              todo = todo.toSerializable()
+//            )
+//          )
+//        },
+//        onAddTodoClick = {
+//          navController.navigate(Destinations.AddTodo)
+//        }
+//      )
+    }
+
+    composable<Destinations.TodoDetail> { backStackEntry ->
+      val args: Destinations.TodoDetail = backStackEntry.toRoute()
+
+//      TodoDetailsScreen(
+//        navigateUp = { navController.navigateUp() },
+//        onShareClick = { _ -> },
+//        noteId = args.todoId
+//      )
+    }
+
+    composable<Destinations.SerializableTodoDetail>(
+      typeMap = mapOf(typeOf<SerializableTodo>() to parcelableType<SerializableTodo>())
+    ) { backStackEntry ->
+      val args: Destinations.SerializableTodoDetail = backStackEntry.toRoute()
+
+//      TodoDetailsScreen(
+//        navigateUp = { navController.navigateUp() },
+//        onShareClick = { _ -> },
+//        todoId = args.todoId,
+//        serializableTodo = args.todo
+//      )
+    }
+
+    composable<Destinations.AddTodo> {
+//      AddTodoScreen(
+//        navigateUp = { navController.navigateUp() },
+//        onTodoAdded = { navController.navigateUp() }
+//      )
+    }
+
   }
 }
 
@@ -95,4 +142,20 @@ sealed class Destinations {
 
   @Serializable
   data object AddNote : Destinations()
+  @Serializable
+  data object TodosList : Destinations()
+
+  @Serializable
+  data class TodoDetail(
+    val todoId: String? = null
+  ) : Destinations()
+
+  @Serializable
+  data class SerializableTodoDetail(
+    val todoId: String? = null,
+    val todo: SerializableTodo
+  ) : Destinations()
+
+  @Serializable
+  data object AddTodo : Destinations()
 }
