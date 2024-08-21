@@ -1,6 +1,7 @@
 package academy.apparchitects.todoapp
 
 import academy.apparchitects.todoapp.ui.TodoAppNav
+import academy.apparchitects.todoapp.ui.home.TodoHomeScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -26,11 +27,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navHostController = rememberNavController()
             NotesAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Box(Modifier.padding(innerPadding)) {
-                        TodoAppNav(navController = navHostController)
-                    }
-                }
+                TodoAppNav(
+                    navController = navHostController
+                )
             }
         }
     }
@@ -44,10 +43,11 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     NotesAppTheme {
         Greeting("Android")
     }
-}
+}*/

@@ -17,11 +17,13 @@ private val provider = GoogleFont.Provider(
 
 val jost: FontFamily = try {
   val font = GoogleFont("Jost")
+
   FontFamily(
     Font(googleFont = font, fontProvider = provider, weight = FontWeight.SemiBold),
     Font(googleFont = font, fontProvider = provider, weight = FontWeight.Medium),
     Font(googleFont = font, fontProvider = provider, weight = FontWeight.Normal),
   )
+
 } catch (e: Exception) {
   FontFamily.Default
 }
