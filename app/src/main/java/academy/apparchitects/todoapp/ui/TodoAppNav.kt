@@ -34,17 +34,23 @@ fun TodoAppNav(
     ) {
 
         composable<Destinations.TodosList> {
-
+//          TodosListScreen(
+//        onTodoClick = { todoId, todo ->
+//          navController.navigate(
+//            Destinations.SerializableTodoDetail(
+//              todoId = todoId,
+//              todo = todo.toSerializable()
+//            )
+//          )
+//        },
+//        onAddTodoClick = {
+//          navController.navigate(Destinations.AddTodo)
+//        }
+//      )
             TodoHomeScreen(
-                onFabClicked = {
-
-                },
-                onItemClicked = {
-
-                },
-                onCompletedClicked = {
-
-                }
+                onFabClicked = {},
+                onItemClicked = {},
+                onCompletedClicked = {}
             )
         }
 
@@ -97,22 +103,6 @@ fun TodoAppNav(
                 navigateUp = { navController.navigateUp() },
                 onNoteAdded = { navController.navigateUp() }
             )
-        }
-
-        composable<Destinations.TodosList> {
-//      TodosListScreen(
-//        onTodoClick = { todoId, todo ->
-//          navController.navigate(
-//            Destinations.SerializableTodoDetail(
-//              todoId = todoId,
-//              todo = todo.toSerializable()
-//            )
-//          )
-//        },
-//        onAddTodoClick = {
-//          navController.navigate(Destinations.AddTodo)
-//        }
-//      )
         }
 
         composable<Destinations.TodoDetail> { backStackEntry ->
