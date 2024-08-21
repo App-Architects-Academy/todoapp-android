@@ -10,6 +10,8 @@ data class AppColors(
   // Secondary
   val secondary: Color = Color(0xFF8B8787),
 
+  val grey : Color = Color(0XFFE9EAEC),
+
   // Others
   val white: Color = Color(0xFFFFFFFF),
   val black: Color = Color(0xFF000000),
@@ -24,6 +26,7 @@ data class AppColors(
 )
 
 val lightAppColors = AppColors()
+
 val darkAppColors = lightAppColors.copy(
   primary = Color(0xFFB3B7EE),
   primaryLight = Color(0xFF9395D3),

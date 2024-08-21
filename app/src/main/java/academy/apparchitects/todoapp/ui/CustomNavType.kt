@@ -11,6 +11,7 @@ inline fun <reified T : Parcelable> parcelableType(
   isNullableAllowed: Boolean = false,
   json: Json = Json,
 ) = object : NavType<T>(isNullableAllowed = isNullableAllowed) {
+
   override fun get(bundle: Bundle, key: String) =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
       bundle.getParcelable(key, T::class.java)

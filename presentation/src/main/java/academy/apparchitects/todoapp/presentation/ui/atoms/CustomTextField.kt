@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun CustomTextField(
+    modifier: Modifier = Modifier,
     label: String,
     value: String,
     onValueChange: (String) -> Unit,
@@ -20,6 +21,6 @@ fun CustomTextField(
         label = { Text(label) },
         readOnly = readOnly,
         trailingIcon = trailingIcon,
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     )
 }
