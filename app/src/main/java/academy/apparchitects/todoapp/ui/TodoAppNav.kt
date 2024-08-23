@@ -2,6 +2,7 @@ package academy.apparchitects.todoapp.ui
 
 import academy.apparchitects.todoapp.data.model.SerializableNote
 import academy.apparchitects.todoapp.data.model.SerializableTodo
+import academy.apparchitects.todoapp.ui.addedit.AddEditTaskScreen
 import academy.apparchitects.todoapp.ui.home.TodoHomeScreen
 import academy.apparchitects.todoapp.ui.screens.addnote.AddNoteScreen
 import academy.apparchitects.todoapp.ui.screens.notedetails.NoteDetailsScreen
@@ -48,9 +49,18 @@ fun TodoAppNav(
 //        }
 //      )
             TodoHomeScreen(
-                onFabClicked = {},
-                onItemClicked = {},
-                onCompletedClicked = {}
+                onFabClicked = {
+                    navController.navigate(Destinations.AddTodo)
+                },
+                onItemClicked = {
+
+                },
+                onCompletedClicked = {
+
+                },
+                onEditTodoClicked = {
+                    navController.navigate(Destinations.EditTodo)
+                }
             )
         }
 
@@ -129,13 +139,25 @@ fun TodoAppNav(
 //      )
         }
 
+        composable<Destinations.EditTodo> {
+            AddEditTaskScreen(
+                isEditMode = true,
+                toolBarTitle = "Edit Todo"
+            )
+        }
+
         composable<Destinations.AddTodo> {
+
+            AddEditTaskScreen(
+                isEditMode = false,
+                toolBarTitle = "Add Todo"
+            )
+
 //      AddTodoScreen(
 //        navigateUp = { navController.navigateUp() },
 //        onTodoAdded = { navController.navigateUp() }
 //      )
         }
-
     }
 }
 
@@ -174,6 +196,9 @@ sealed class Destinations {
 
     @Serializable
     data object AddTodo : Destinations()
+
+    @Serializable
+    data object EditTodo : Destinations()
 
     @Serializable
     data object Completed : Destinations()

@@ -36,7 +36,9 @@ fun EditTaskTemplate(
             TopAppBar(
                 title = { Text(toolBarTitle) },
                 navigationIcon = {
-                    IconButton(onClick = { /* todo Handle back action */ }) {
+                    IconButton(onClick = {
+
+                    }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 }

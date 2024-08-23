@@ -6,12 +6,15 @@ import academy.apparchitects.todoapp.data.model.Todo
 import academy.apparchitects.todoapp.presentation.ui.atoms.CustomIcon
 import academy.apparchitects.todoapp.presentation.ui.atoms.Label
 import academy.apparchitects.todoapp.presentation.ui.molecules.EmptyScreen
+import academy.apparchitects.todoapp.presentation.ui.templates.TodoItem
 import academy.apparchitects.todoapp.ui.Destinations
 import academy.apparchitects.todoapp.ui.theme.AppTheme
+import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -72,6 +75,7 @@ sealed class BottomNavItems(
     )
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showSystemUi = true)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -79,7 +83,8 @@ fun TodoHomeScreen(
     itemList: List<SerializableTodo> = emptyList(),
     onFabClicked: () -> Unit = {},
     onItemClicked: (SerializableTodo) -> Unit = {},
-    onCompletedClicked: () -> Unit = {}
+    onCompletedClicked: () -> Unit = {},
+    onEditTodoClicked: (SerializableTodo?) -> Unit = {}
 ) {
 
     val bottomNavList = remember {
@@ -180,7 +185,10 @@ fun TodoHomeScreen(
         content = {
             TodoItemCardList(
                 modifier = Modifier.padding(it),
-                itemList = emptyList<SerializableTodo>(),
+                itemList = emptyList(),
+                onEditTodoClicked = {
+                    onEditTodoClicked.invoke(null)
+                }
             )
         }
     )
@@ -189,15 +197,15 @@ fun TodoHomeScreen(
 @Composable
 private fun TodoItemCardList(
     modifier: Modifier = Modifier,
-    itemList: List<SerializableTodo>
+    itemList: List<SerializableTodo>,
+    onEditTodoClicked : () -> Unit
 ) {
 
     val newModifier = modifier
         .fillMaxSize()
         .background(color = AppTheme.colors.primaryLight)
 
-    if (itemList.isEmpty()) {
-
+    if (itemList.isEmpty().not()) {
         Box(
             modifier = newModifier,
             content = {
@@ -215,8 +223,27 @@ private fun TodoItemCardList(
     } else {
         LazyColumn(
             modifier = newModifier,
+            contentPadding = PaddingValues(horizontal = 16.dp),
             content = {
 
+                this.items(
+                    count = 6,
+                    itemContent = {
+
+                        TodoItem(
+                            modifier = Modifier.padding(top = 16.dp),
+                            title = "Title",
+                            subtitle = "Sub-Title",
+                            onEditClick = onEditTodoClicked,
+                            onDeleteClick = {
+
+                            },
+                            onDoneClick = {
+
+                            }
+                        )
+                    }
+                )
             }
         )
     }
